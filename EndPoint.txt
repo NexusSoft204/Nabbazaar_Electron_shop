@@ -1,0 +1,61 @@
+Hero slider
+http://127.0.0.1:8000/api/settings/hero-sliders/
+
+
+Benefit 
+http://127.0.0.1:8000/api/settings/benefit/
+
+aboutus
+http://127.0.0.1:8000/api/settings/aboutus/
+
+FAQ
+http://127.0.0.1:8000/api/settings/faq/
+
+Blog
+http://127.0.0.1:8000/api/blog/
+
+
+contact send email
+http://127.0.0.1:8000/api/settings/contact/send/
+
+
+contact / info
+http://127.0.0.1:8000/api/settings/contact/info/
+
+
+TermsAndConditions
+http://127.0.0.1:8000/api/settings/termsandcondition/
+
+ReturnPolicy
+http://127.0.0.1:8000/api/settings/ReturnPolicy/
+
+bset seller , best guesset
+http://127.0.0.1:8000/api/product/
+
+
+all products
+http://127.0.0.1:8000/api/product/all/
+
+
+Brands
+http://127.0.0.1:8000/api/product/brands/
+
+
+cart 
+Get cart
+http://127.0.0.1:8000/api/cart/
+add to cart
+http://127.0.0.1:8000/api/cart/add-item/
+
+
+POST
+/api/order/create/
+
+
+GET
+/api/order/success/ORD-000001/
+
+
+
+GET
+/api/order/track/?order_number=ORD-000001&phone=0701234567

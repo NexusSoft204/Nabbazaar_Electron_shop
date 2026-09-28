@@ -1,0 +1,5 @@
+from products.admins.brand_admin import BrandAdmin
+from products.admins.catagory_admin import CategoryAdmin
+from products.admins.product_admin import ProductAdmin
+from products.admins.ProductGallery_admin import ProductGalleryInline
+from products.admins.ProductVariant_admin import ProductVariantAdmin , ProductVariantInline

@@ -1,0 +1,7 @@
+from settings.view.hero_slider_view import HeroSliderView
+from settings.view.Store_Benefits_view import Store_BenefitsListView
+from settings.view.about_us_view import AboutUsDetailAPIView
+from settings.view.faq_view import FAQListApiView
+from settings.view.TermsAndConditions_view import TermsAndConditionsListView
+from settings.view.ReturnPolicy_view import ReturnPolicyListView
+
