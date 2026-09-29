@@ -5,8 +5,11 @@ import React from "react";
 // Fetch Brands from Django API
 // =====================================================
 async function GetDataBrand() {
-  const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+  if (!process.env.NEXT_PUBLIC_API_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not configured");
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   try {
     const response = await fetch(`${API_URL}/api/product/brands/`, {

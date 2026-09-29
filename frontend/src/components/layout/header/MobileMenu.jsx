@@ -103,7 +103,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
         {/* User */}
         <Link
-          href="/account"
+          href="/login"
           onClick={onClose}
           className="m-4 flex items-center gap-3 rounded-xl bg-slate-100 p-4"
         >
@@ -152,7 +152,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/best-sellers"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >
@@ -162,7 +162,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/deals"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >
@@ -182,7 +182,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/blog"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >
@@ -192,7 +192,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/about-us"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >
@@ -202,7 +202,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/faq"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >
@@ -212,7 +212,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
 
             <Link
-              href="/new-Arrivals"
+              href="/contact-us"
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-3 hover:bg-slate-100"
             >

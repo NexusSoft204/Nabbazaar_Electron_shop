@@ -13,7 +13,7 @@ const Flash_deals = () => {
   // ۱. استیت برای تایمر معکوس (مثلاً ۶ ساعت و ۴۵ دقیقه و ۲۹ ثانیه‌ی داخل عکس شما)
   const [timeLeft, setTimeLeft] = useState({ hours: 6, minutes: 45, seconds: 29 });
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   // لود دیتای بخش special_discounts از جنگو
   useEffect(() => {

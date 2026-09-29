@@ -3,7 +3,11 @@ import ProductCard from "../shop/productCard";
 export default async function SearchPage({ searchParams }) {
   const resolvedParams = await searchParams;
   const searchQuery = resolvedParams?.q || '';
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+  if (!process.env.NEXT_PUBLIC_API_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not configured");
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   // آدرس دقیقاً بر اساس پورت 8000 و مسیر معتبر شما تنظیم شده است:
   const djangoApiUrl = `${API_URL}/api/product/search/?search=${encodeURIComponent(searchQuery)}`;

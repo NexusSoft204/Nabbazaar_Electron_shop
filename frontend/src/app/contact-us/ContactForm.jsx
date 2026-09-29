@@ -1,6 +1,13 @@
 "use client";
 import React, { useState } from 'react';
 import { User, Phone, Mail, FileText, Send, Loader2 } from 'lucide-react';
+
+
+
+if (!process.env.NEXT_PUBLIC_API_URL) {
+  throw new Error("NEXT_PUBLIC_API_URL is not configured");
+}
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function ContactForm() {
