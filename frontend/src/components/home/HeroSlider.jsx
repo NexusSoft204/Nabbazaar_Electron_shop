@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 export default function Hero_components() {
   const [hero, setHero] = useState([]);
@@ -14,7 +14,7 @@ export default function Hero_components() {
   useEffect(() => {
     async function loadHero() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/settings/hero-sliders/", {
+        const res = await fetch(`${API_URL}/api/settings/hero-sliders/`, {
           cache: "no-store",
         });
         const data = await res.json();

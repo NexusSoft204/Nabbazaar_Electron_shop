@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 const Benefits = () => {
   const [benefits, setBenefits] = useState([]);
@@ -9,7 +10,7 @@ const Benefits = () => {
   useEffect(() => {
     async function fetchBenefits() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/settings/benefit/", {
+        const res = await fetch(`${API_URL}/api/settings/benefit/`, {
           cache: "no-store",
         });
         const data = await res.json();
