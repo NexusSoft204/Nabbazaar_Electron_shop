@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Clock, RefreshCw, Layers, ClipboardList, HelpCircle } from 'lucide-react';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 
 export default function ReturnPolicyPage() {
   const [policy, setPolicy] = useState(null);
@@ -8,7 +10,7 @@ export default function ReturnPolicyPage() {
   useEffect(() => {
     async function fetchPolicy() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/settings/ReturnPolicy/", {
+        const res = await fetch(`${API_URL}/api/settings/ReturnPolicy/`, {
           cache: "no-store",
         });
         if (res.ok) {

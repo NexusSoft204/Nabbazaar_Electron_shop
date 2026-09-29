@@ -2,9 +2,11 @@ import React from 'react';
 import { Phone, MessageSquare, Mail, Clock, MapPin } from 'lucide-react';
 import ContactForm from './ContactForm'; 
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 async function fetchContactInfo() {
   try {
-    const res = await fetch("http://127.0.0.1:8000/api/settings/contact/info/", {
+    const res = await fetch(`${API_URL}/api/settings/contact/info/`, {
       cache: "no-store",
     });
     

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 export default function FilterSidebar({ currentFilters }) {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function FilterSidebar({ currentFilters }) {
     const getBrands = async () => {
       try {
         const res = await fetch(
-          "http://127.0.0.1:8000/api/product/brands/"
+          `${API_URL}/api/product/brands/`
         );
 
         if (!res.ok) {

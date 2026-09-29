@@ -1,10 +1,11 @@
 import React from 'react';
 import FaqAccordionWrapper from './FaqAccordionWrapper';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 
 async function getFaqs() {
   try {
-    const res = await fetch("http://127.0.0.1:8000/api/settings/faq/", {
+    const res = await fetch(`${API_URL}/api/settings/faq/`, {
       cache: "no-store", 
     });
     

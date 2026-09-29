@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { User, Phone, Mail, FileText, Send, Loader2 } from 'lucide-react';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ export default function ContactForm() {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/settings/contact/send/", {
+      const res = await fetch(`${API_URL}/api/settings/contact/send/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

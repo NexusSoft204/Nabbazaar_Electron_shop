@@ -2,11 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, User, Tag, ChevronLeft } from 'lucide-react';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 async function fetchSingleBlog(slug) {
   try {
     
-    const res = await fetch("http://127.0.0.1:8000/api/blog/", {
+    const res = await fetch(`${API_URL}/api/blog/`, {
       cache: "no-store",
     });
     if (!res.ok) return null;
@@ -43,7 +44,7 @@ export default async function BlogDetailPage({ params }) {
         <div>
           <Link 
             href="/blog" 
-            className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-primary-blue transition-colors group cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-sm font-medium hover:text-primary-bluehttp://127.0.0.1:8000/api/blog/ transition-colors group cursor-pointer"
           >
             <ChevronLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
             Back to ElectroShop Blog

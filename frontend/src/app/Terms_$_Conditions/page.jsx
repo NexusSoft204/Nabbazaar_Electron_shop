@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { FileText, ShoppingBag, ClipboardList, CreditCard, Truck, AlertTriangle, ShieldCheck } from 'lucide-react';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 export default function TermsPage() {
   const [terms, setTerms] = useState(null);
@@ -9,7 +10,7 @@ export default function TermsPage() {
   useEffect(() => {
     async function fetchTerms() {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/settings/termsandcondition/", {
+        const res = await fetch(`${API_URL}/api/settings/termsandcondition/`, {
           cache: "no-store",
         });
         if (res.ok) {

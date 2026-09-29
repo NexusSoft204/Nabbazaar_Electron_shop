@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import FilterSidebar from "./FilterSidebar";
 import ProductCard from "./productCard";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
 // ======================================================
 // GET PRODUCTS
@@ -10,7 +11,7 @@ import ProductCard from "./productCard";
 
 async function getProducts() {
   const res = await fetch(
-    "http://127.0.0.1:8000/api/product/all/",
+    `${API_URL}/api/product/all/`,
     {
       cache: "no-store",
     }
