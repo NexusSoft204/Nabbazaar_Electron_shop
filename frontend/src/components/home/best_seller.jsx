@@ -184,7 +184,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   return (
     <section className="w-full py-3 shadow">
-      <div className="2xl:max-w-6xl mx-auto px-5">
+      <div className="2xl:container mx-auto px-5">
 
         {/* ==================================================
             HEADER

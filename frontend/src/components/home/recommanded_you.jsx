@@ -180,7 +180,7 @@ const Recommeded_you = () => {
 
   return (
     <section className="w-full py-3">
-      <div className="2xl:max-w-6xl mx-auto px-5">
+      <div className="2xl:container mx-auto px-5">
 
         {/* ==================================================
             HEADER
