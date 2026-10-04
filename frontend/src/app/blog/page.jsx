@@ -31,7 +31,7 @@ export default async function BlogPage() {
 
   return (
     <main className="w-full min-h-screen py-16 font-sans">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="2xl:container mx-auto px-6">
         
         {/* Section Header */}
         <div className="mb-14 text-center max-w-xl mx-auto space-y-3">
@@ -54,7 +54,7 @@ export default async function BlogPage() {
               return (
                 <article 
                   key={post.id}
-                  className="group flex flex-col border border-deep-navy/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl hover:border-primary-blue/80 hover:bg-deep-navy/30 transition-all  duration-500 transform hover:-translate-y-1.5"
+                  className="group flex flex-col border border-deep-navy/40 rounded-2xl overflow-hidden shadow-xs hover:shadow-xl hover:border-primary-blue/80  transition-all  duration-500 transform hover:-translate-y-1.5"
                 >
                   {/* Image Container Canvas with Advanced Zoom & Overlay */}
                   <div className="relative aspect-video w-full overflow-hidden bg-deep-navy">
@@ -65,10 +65,10 @@ export default async function BlogPage() {
                     />
 
                     {/* Dark Vignette Overlay on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-deep-navy/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 " />
 
                     {/* Modernized Floating Glassmorphism Category Tag */}
-                    <div className="absolute top-4 left-4 bg-deep-navy/60 backdrop-blur-md border border-white/10  text-white text-xs font-semibold px-3 py-1.5 rounded-xl uppercase tracking-wider flex items-center  gap-1.5 shadow-sm transition-colors duration-300 group-hover:bg-primary-blue     group-hover:border-primary-blue">
+                    <div className="absolute top-4 left-4  border border-white/10  text-white text-xs font-inter px-3 py-1.5 rounded-xl uppercase tracking-wider flex items-center  gap-1.5 shadow-sm transition-colors duration-300      group-hover:border-primary-blue">
                       <Tag size={12} className="text-highlight group-hover:text-white transition-colors" />
                       <span>{post.category}</span>
                     </div>

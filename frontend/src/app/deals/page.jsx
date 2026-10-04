@@ -29,7 +29,7 @@ const Deals = async () => {
 
   return (
     <main className="w-full min-h-screen bg-white py-10 sm:py-14">
-      <section className="2xl:max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="2xl:container mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ================= HEADER ================= */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">

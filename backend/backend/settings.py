@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y(*j!=3o_h2(xu^dxhhm8xsgk+21e&#b5xxxi=-k@^(8&n^(jc)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['api.nabbazaar.com', 'nabbazaar.com', '127.0.0.1', 'localhost']
 

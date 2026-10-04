@@ -3,10 +3,7 @@ import React from "react";
 import Link from "next/link";
 import FilterSidebar from "./FilterSidebar";
 import ProductCard from "./productCard";
-// const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
-if (!process.env.NEXT_PUBLIC_API_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is not configured");
-}
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -389,8 +386,8 @@ export default async function ShopPage({
 
   return (
     <div
+      className="2xl:container"
       style={{
-        maxWidth: "1200px",
         margin: "0 auto",
         padding: "20px",
         direction: "rtl",
@@ -406,6 +403,7 @@ export default async function ShopPage({
           textAlign: "center",
           marginBottom: "30px",
         }}
+        className="font-montserrat font-bold"
       >
         Store Products
       </h1>

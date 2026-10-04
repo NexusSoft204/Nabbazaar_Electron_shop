@@ -53,7 +53,7 @@ export default function ReturnPolicyPage() {
 
   return (
     <main className="w-full min-h-screen bg-white text-gray-800 font-sans py-16 text-left" dir="ltr">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="2xl:container mx-auto px-6">
         
         {/* Header Hero Component Panel */}
         <div className="border-b border-gray-100 pb-8 mb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">

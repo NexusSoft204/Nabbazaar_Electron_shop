@@ -366,7 +366,7 @@ const Checkout = () => {
   if (!basket || basket.length === 0) {
     return (
       <main className="w-full min-h-screen bg-[#F7F8F9] py-10 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="2xl:container mx-auto">
 
           <div className="bg-white rounded-3xl border border-slate-200 p-10 text-center">
 

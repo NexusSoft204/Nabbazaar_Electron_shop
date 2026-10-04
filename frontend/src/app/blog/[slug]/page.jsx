@@ -44,7 +44,7 @@ export default async function BlogDetailPage({ params }) {
 
   return (
     <article className="w-full min-h-screen py-12 font-sans">
-      <div className="max-w-4xl mx-auto px-6 space-y-8">
+      <div className="2xl:container mx-auto px-6 space-y-8">
         
         {/* Navigation Breadcrumb Backspace Link */}
         <div>

@@ -1,6 +1,7 @@
 import React from "react";
 import ProductGallery from "./ProductGallery";
 import AddToCart from "./AddToCart";
+import ShareButton from "./ShareButton";
 
 async function getProductDetail(slug) {
   const API_URL =
@@ -106,7 +107,7 @@ export default async function DetailProduct({ params }) {
   return (
     <main className="w-full min-h-screen bg-[#F7F8F9] text-slate-800 py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
 
-      <section className="max-w-7xl mx-auto">
+      <section className="2xl:container mx-auto">
 
         {/* Breadcrumb */}
         <div className="flex font-montserrat flex-wrap items-center gap-2 text-sm text-slate-500 mb-6">
@@ -159,26 +160,7 @@ export default async function DetailProduct({ params }) {
 
                 </div>
 
-                <button
-                  type="button"
-                  aria-label="Share product"
-                  className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-500 hover:text-blue-600 hover:border-blue-200 transition"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle cx="18" cy="5" r="3" />
-                    <circle cx="6" cy="12" r="3" />
-                    <circle cx="18" cy="19" r="3" />
-                    <path
-                      strokeWidth="1.8"
-                      d="M8.59 13.51l6.83 3.98M15.41 6.51L8.59 10.49"
-                    />
-                  </svg>
-                </button>
+                <ShareButton productName={product.product_name} />
 
               </div>
 

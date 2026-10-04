@@ -19,16 +19,6 @@ import { useEffect, useState } from "react";
 // API
 // ======================================================
 
-// const API_URL =
-//   process.env.API_URL ||
-//   process.env.NEXT_PUBLIC_API_URL ||
-//   "http://127.0.0.1:8000";
-
-
-if (!process.env.NEXT_PUBLIC_API_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is not configured");
-}
-
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // ======================================================
@@ -152,7 +142,7 @@ const BestSellers = () => {
   return (
     <main className="w-full bg-white py-10">
 
-      <section className="2xl:max-w-6xl mx-auto px-4 sm:px-6">
+      <section className="2xl:container mx-auto px-4 sm:px-6">
 
         {/* ==================================================
             HEADER

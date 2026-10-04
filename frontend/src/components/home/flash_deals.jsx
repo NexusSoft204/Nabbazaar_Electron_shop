@@ -78,7 +78,7 @@ const Flash_deals = () => {
 
   return (
     <section className='w-full my-6 select-none'>
-      <div className='2xl:max-w-6xl mx-auto flex h-48 border-2 border-red-600 rounded-md overflow-hidden bg-white relative group'>
+      <div className='2xl:container mx-auto flex h-48 border-2 border-red-600 rounded-md overflow-hidden bg-white relative group'>
         
         {/* ======================================================== */}
         {/* کادر قرمز رنگ سمت چپ (Flash Deals Banner) */}

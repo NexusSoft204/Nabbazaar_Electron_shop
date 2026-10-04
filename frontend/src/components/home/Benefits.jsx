@@ -35,7 +35,7 @@ const Benefits = () => {
   if (loading || benefits.length === 0) return null;
 
   return (
-    <section className='w-full text-left py-5 hidden lg:block bg-gray-50' dir="ltr">
+    <section className='w-full text-left py-5 hidden lg:block bg-gray-50'>
       <div className='2xl:container mx-auto px-3'>
         
         {/* گرید ۴ ستونه دقیقاً مطابق با طراحی شما */}
@@ -44,7 +44,7 @@ const Benefits = () => {
             // اصلاح هوشمند مسیر فایل تصاویری که با اسلش شروع می‌شوند
             let imageUrl = benefit.image;
             if (imageUrl && imageUrl.startsWith("/")) {
-              imageUrl = `http://127.0.0.1:8000${imageUrl}`;
+              imageUrl = `${API_URL}${imageUrl}`;
             }
 
             return (

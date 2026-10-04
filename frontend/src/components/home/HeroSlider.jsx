@@ -104,7 +104,7 @@ export default function Hero_components() {
                 <div className="absolute inset-0 bg-black/50 z-10" />
                 
                 <div className="relative z-20 flex items-center h-full px-6 md:px-10">
-                  <div className="max-w-7xl mx-auto w-full">
+                  <div className="2xl:container mx-auto w-full">
                     <div className="max-w-2xl space-y-6 text-white md:p-20" >
                       <h1 className="text-3xl md:text-5xl w-full font-bold leading-tight font-montserrat">
                         {item.title}

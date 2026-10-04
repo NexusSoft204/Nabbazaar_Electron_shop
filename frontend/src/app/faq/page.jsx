@@ -32,7 +32,7 @@ export default async function FaqPage() {
 
   return (
     <main className="w-full min-h-screen  py-20 font-sans">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="2xl:container mx-auto px-6">
         
         {/* Page Section Header */}
         <div className="text-center space-y-4 mb-16">

@@ -92,7 +92,7 @@ export default async function ContactPage() {
 
   return (
     <main className="w-full min-h-screen py-16 font-sans text-left">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="2xl:container mx-auto px-6 lg:px-8">
         
         <div className="text-center space-y-3 max-w-xl mx-auto mb-16">
           <h1 className="text-3xl sm:text-5xl font-montserrat font-extrabold tracking-tight text-white">

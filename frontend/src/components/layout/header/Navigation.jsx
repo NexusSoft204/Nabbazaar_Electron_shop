@@ -119,7 +119,7 @@ const categories = [
 const navItems = [
   { title: "Home", href: "/" },
   { title: "Shop", href: "/shop" },
-  { title: "new Arrivals", href: "/new-arrivals" },
+  { title: "New Arrivals", href: "/new-arrivals" },
   { title: "Best Sellers", href: "/best-sellers" },
   { title: "Deals", href: "/deals" },
   // { title: "Brands", href: "/brands" },

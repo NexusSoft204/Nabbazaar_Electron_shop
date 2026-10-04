@@ -31,8 +31,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // Brands Component
 // =====================================================
 const Brands = async () => {
-  const API_URL =
-    process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 
   const liveBrands = await GetDataBrand();
 
@@ -58,7 +56,7 @@ const Brands = async () => {
 
   return (
     <section className="w-full py-6 sm:py-8">
-      <div className="2xl:max-w-[1500px] xl:max-w-7xl lg:max-w-6xl mx-auto px-5 sm:px-6">
+      <div className="2xl:container w-full mx-auto px-5 sm:px-6">
 
         {/* =================================================
             HEADER

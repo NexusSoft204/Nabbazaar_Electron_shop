@@ -26,7 +26,7 @@ const Footer = async () => {
 
   return (
     <footer className="w-full bg-gradient-to-b from-deep-navy overflow-hidden to-backegound-navy text-slate-200 pt-16 pb-8 px-4 md:px-8 border-t border-white/[0.03]">
-      <div className="2xl:max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
+      <div className="2xl:container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
         
         {/* ستون اول: درباره ما */}
         <div className="space-y-5 flex flex-col items-center sm:items-start">

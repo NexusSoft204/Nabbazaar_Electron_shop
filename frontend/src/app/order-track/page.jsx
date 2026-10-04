@@ -256,7 +256,7 @@ const OrderTrack = () => {
   return (
     <main className="min-h-screen bg-[#F7F8F9] py-10 sm:py-14 px-4">
 
-      <div className="max-w-4xl mx-auto">
+      <div className="2xl:container mx-auto">
 
 
         {/* =========================================

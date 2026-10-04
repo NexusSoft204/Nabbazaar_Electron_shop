@@ -238,7 +238,7 @@ export default function CartPage() {
   return (
     <main className="min-h-screen bg-[#F7F8F9] px-4 py-8 sm:px-6 lg:px-8">
 
-      <section className="max-w-7xl mx-auto">
+      <section className="2xl:container mx-auto">
 
         {/* Breadcrumb */}
 

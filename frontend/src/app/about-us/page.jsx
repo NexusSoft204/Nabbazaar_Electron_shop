@@ -1,10 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Layers, Users, ShieldCheck, ArrowRight } from 'lucide-react';
-// const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
-if (!process.env.NEXT_PUBLIC_API_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is not configured");
-}
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -64,7 +61,7 @@ export default function AboutUsSection() {
 
   return (
     <section className="w-full py-20 bg-white text-left font-inter">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="2xl:container mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
           {/* Left Column: Media Canvas & Animated Counters */}

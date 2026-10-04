@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  
-}
 
 @theme inline {
   --color-background: var(--background);
@@ -20,12 +15,7 @@
   --color-bright-white:#F7F8F9;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 
 body {
   background: var(--background);
@@ -38,8 +28,6 @@ body {
   
   --font-montserrat: var(--font-montserrat), sans-serif;
   --font-inter: var(--font-inter), sans-serif;
-
-
    --animate-marquee: marquee 25s linear infinite;
 
   /* تعریف کی‌فریم‌های انیمیشن */

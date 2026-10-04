@@ -148,7 +148,7 @@ const NewArrivalsClient = ({ products = [] }) => {
   if (!products.length) {
     return (
       <main className="w-full min-h-screen bg-white py-16">
-        <section className="max-w-6xl mx-auto px-5">
+        <section className="2xl:container mx-auto px-5">
           <div className="min-h-[400px] flex flex-col items-center justify-center text-center border border-[#D9DDE6] rounded-3xl bg-[#F7F8F9]">
             <div className="w-20 h-20 rounded-full bg-white border border-[#D9DDE6] flex items-center justify-center mb-5">
               <Package className="w-9 h-9 text-[#045FF8]" />

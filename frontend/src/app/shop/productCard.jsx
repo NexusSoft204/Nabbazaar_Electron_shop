@@ -1,10 +1,11 @@
+
 import Link from "next/link";
 import React from "react";
 
 // دریافت محصول و وضعیت گرید به صورت همزمان از ورودی
 const ProductCard = ({ product, isGrid }) => {
   // جلوگیری از ارور در صورتی که دیتای محصول هنوز لود نشده باشد
-  if (!product) return null; 
+  if (!product) return null;
 
   return (
     <Link
@@ -58,11 +59,13 @@ const ProductCard = ({ product, isGrid }) => {
 
         {/* PRICE */}
         <div style={{ marginTop: "15px" }}>
-          {product.discount_price !== null && product.discount_price !== undefined ? (
+          {product.discount_price !== null &&
+          product.discount_price !== undefined ? (
             <>
               <span style={{ color: "#e53e3e", fontWeight: "bold" }}>
                 {Number(product.discount_price).toLocaleString()} Af
               </span>
+
               <span
                 style={{
                   textDecoration: "line-through",
@@ -81,10 +84,20 @@ const ProductCard = ({ product, isGrid }) => {
           )}
         </div>
       </div>
-      
-      <button className="w-full h-10 bg-primary-blue text-white rounded-sm mt-4 font-montserrat capitalize text-sm cursor-pointer">
-        show more
-      </button>
+
+      {/* SHOW MORE */}
+      <div
+        style={{
+          display: isGrid ? "block" : "flex",
+          alignItems: "flex-end",
+        }}
+      >
+        <button
+          className="w-full px-10 h-10 bg-primary-blue text-white rounded-sm mt-4 font-montserrat capitalize text-sm cursor-pointer"
+        >
+          show more
+        </button>
+      </div>
     </Link>
   );
 };
