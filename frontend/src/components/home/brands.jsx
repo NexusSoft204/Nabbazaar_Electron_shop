@@ -65,9 +65,10 @@ const Brands = async () => {
 
           {/* View All */}
           <Link
-            href="/shop"
+           href="/shop"
             className="
               inline-flex
+              cursor-pointer
               items-center
               gap-2
 
@@ -138,9 +139,7 @@ const Brands = async () => {
           "
         >
           {liveBrands.map((brand) => (
-            <Link
-              key={brand.id}
-              href={`/shop?brand=${brand.id}`}
+            <section
               className="
                 group
 
@@ -238,7 +237,7 @@ const Brands = async () => {
               >
                 {brand.title || brand.name}
               </h3>
-            </Link>
+            </section>
           ))}
         </div>
       </div>

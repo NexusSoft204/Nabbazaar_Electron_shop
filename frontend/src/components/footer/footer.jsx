@@ -29,7 +29,7 @@ const Footer = async () => {
       <div className="2xl:container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
         
         {/* ستون اول: درباره ما */}
-        <div className="space-y-5 flex flex-col items-center sm:items-start">
+        <div className="space-y-5 flex flex-col">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-black tracking-tight text-white font-montserrat bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
               NabBazaar
@@ -42,7 +42,7 @@ const Footer = async () => {
         </div>
 
         {/* ستون دوم: لینک‌های سریع */}
-        <div className="space-y-5 font-montserrat flex flex-col items-center sm:items-start">
+        <div className="space-y-5 font-montserrat flex flex-col">
           <h3 className="text-sm font-bold tracking-wider text-white uppercase relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-blue-500">
             Quick Links
           </h3>
@@ -66,7 +66,7 @@ const Footer = async () => {
         </div>
 
         {/* ستون سوم: خدمات مشتریان */}
-        <div className="space-y-5 font-montserrat flex flex-col items-center sm:items-start">
+        <div className="space-y-5 font-montserrat flex flex-col">
           <h3 className="text-sm font-bold tracking-wider text-white uppercase relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-blue-500">
             Customer Services
           </h3>
@@ -89,7 +89,7 @@ const Footer = async () => {
         </div>
 
         {/* ستون چهارم: اطلاعات تماس */}
-        <div className="space-y-5 font-montserrat flex flex-col items-center sm:items-start">
+        <div className="space-y-5 font-montserrat flex flex-col">
           <h3 className="text-sm font-bold tracking-wider text-white uppercase relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-8 after:h-[2px] after:bg-blue-500">
             Contact Info
           </h3>
@@ -125,7 +125,7 @@ const Footer = async () => {
       {/* ======================================================== */}
       {/* بخش بنر میانی ویژگی‌های پرداخت (Premium Trust Badges) */}
       {/* ======================================================== */}
-      <div className="2xl:max-w-6xl mx-auto border-t border-b border-white/[0.08]  py-6 bg-white/[0.01] backdrop-blur-sm rounded-xl px-4">
+      <div className="2xl:container mx-auto border-t border-b border-white/[0.08]  py-6 bg-white/[0.01] backdrop-blur-sm rounded-xl px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center md:text-left">
           
           {/* کارت ویژگی اول */}

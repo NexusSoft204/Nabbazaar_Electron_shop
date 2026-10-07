@@ -1,2 +1,3 @@
 from products.serializer.proudct_serializer import ProductSerializer
 from products.serializer.brand_serializer import BrandSerializer
+from products.serializer.catagore_serializer  import CategoryDetailSerializer

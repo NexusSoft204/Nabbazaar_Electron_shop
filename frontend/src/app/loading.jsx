@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Cpu, ShoppingBag, Wifi, Zap } from "lucide-react";
 
-const loading = () => {
+const Loading = () => {
   const [progress, setProgress] = useState(0);
   const [dots, setDots] = useState("");
 
@@ -29,102 +29,100 @@ const loading = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[9999] flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4">
-      {/* Background Glow */}
-      <div className="absolute top-[-150px] left-[-100px] h-80 w-80 rounded-full bg-blue-500/20 blur-[120px]" />
+    <div className="fixed inset-0 z-[9999] flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4">
+      {/* Background Soft Ambient Light */}
+      <div className="absolute top-[-150px] left-[-100px] h-96 w-96 rounded-full bg-blue-500/5 blur-[120px]" />
+      <div className="absolute right-[-100px] bottom-[-150px] h-[450px] w-[450px] rounded-full bg-indigo-500/5 blur-[140px]" />
 
-      <div className="absolute right-[-100px] bottom-[-150px] h-96 w-96 rounded-full bg-purple-500/20 blur-[140px]" />
-
-      {/* Grid Background */}
+      {/* Grid Pattern with Light Overlay */}
       <div
-        className="absolute inset-0 opacity-[0.08]"
+        className="absolute inset-0 opacity-[0.4]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)
+            linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "32px 32px",
         }}
       />
 
-      {/* Main Content */}
-      <div className="relative z-10 flex w-full max-w-md flex-col items-center">
-        {/* Animated Icons */}
-        <div className="relative mb-10 flex h-28 w-28 items-center justify-center">
-          {/* Rotating Circles */}
-          <div className="absolute h-full w-full animate-spin rounded-full border border-dashed border-cyan-400/40" />
+      {/* Main Content Box */}
+      <div className="relative z-10 flex w-full max-w-sm flex-col items-center">
+        
+        {/* Dynamic Visual Icon Area */}
+        <div className="relative mb-8 flex h-28 w-28 items-center justify-center">
+          {/* Animated Decorative Rings */}
+          <div className="absolute h-full w-full animate-spin rounded-full border-2 border-dashed border-blue-200" />
+          <div className="absolute h-20 w-20 animate-[spin_4s_linear_infinite_reverse] rounded-full border border-indigo-100 bg-white shadow-sm" />
 
-          <div className="absolute h-20 w-20 animate-[spin_3s_linear_infinite_reverse] rounded-full border border-purple-400/40" />
-
-          {/* Logo Center */}
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-cyan-500/30">
-            <Cpu size={30} className="text-white" />
+          {/* Core Glassmorphic Icon */}
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-500 shadow-lg shadow-blue-500/20">
+            <Cpu size={28} className="text-white" />
           </div>
 
-          {/* Floating Icons */}
+          {/* Floating Icons with Subdued Colors */}
           <ShoppingBag
-            size={18}
-            className="absolute top-0 right-1 animate-bounce text-cyan-400"
+            size={16}
+            className="absolute top-0 right-1 animate-bounce text-blue-500"
           />
-
           <Wifi
-            size={18}
-            className="absolute bottom-0 left-1 animate-pulse text-purple-400"
+            size={16}
+            className="absolute bottom-1 left-1 animate-pulse text-indigo-500"
           />
-
           <Zap
-            size={18}
-            className="absolute right-[-20px] bottom-10 animate-pulse text-yellow-400"
+            size={16}
+            className="absolute right-[-16px] bottom-10 animate-pulse text-amber-500"
           />
         </div>
 
-        {/* Title */}
-        <h1 className="text-center text-2xl font-bold tracking-wide text-white">
-          TECH<span className="text-cyan-400">STORE</span>
+        {/* Brand Typography */}
+        <h1 className="text-center text-3xl font-black tracking-wider text-slate-900">
+          TECH<span className="bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent">STORE</span>
         </h1>
 
-        <p className="mt-3 text-center text-sm text-slate-400">
-          در حال آماده‌سازی بهترین محصولات تکنالوژی
-          <span className="inline-block w-6 text-left text-cyan-400">
+        <p className="mt-2 text-center text-sm font-medium text-slate-500">
+          Preparing the ultimate tech products
+          <span className="inline-block w-6 text-left text-blue-600 font-bold">
             {dots}
           </span>
         </p>
 
-        {/* Progress */}
-        <div className="mt-8 w-full">
-          <div className="mb-3 flex justify-between text-xs">
-            <span className="text-slate-400">Loading System</span>
-
-            <span className="font-semibold text-cyan-400">
+        {/* Clean Progress Section */}
+        <div className="mt-8 w-full rounded-2xl border border-slate-200/60 bg-white/70 p-5 shadow-sm backdrop-blur-md">
+          <div className="mb-2.5 flex justify-between text-xs font-semibold">
+            <span className="text-slate-400 uppercase tracking-wider">Loading System</span>
+            <span className="text-blue-600">
               {progress}%
             </span>
           </div>
 
-          <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+          {/* Progress Track */}
+          <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-100 p-0.5 border border-slate-200/40">
             <div
-              className="relative h-full rounded-full bg-gradient-to-r from-blue-600 via-cyan-400 to-purple-500 transition-all duration-300"
+              className="relative h-full rounded-full bg-gradient-to-r from-blue-600 to-indigo-500 transition-all duration-300"
               style={{ width: `${progress}%` }}
             >
-              {/* Shine Effect */}
-              <div className="absolute inset-y-0 right-0 w-16 bg-white/30 blur-sm" />
+              {/* Internal Moving Glow */}
+              <div className="absolute inset-y-0 right-0 w-12 bg-white/20 blur-xs" />
             </div>
           </div>
         </div>
 
-        {/* Bottom Status */}
-        <div className="mt-8 flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-md">
+        {/* Bottom Connectivity Status */}
+        <div className="mt-8 flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 px-4 py-2 shadow-xs backdrop-blur-md">
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
           </span>
 
-          <span className="text-xs text-slate-400">
-            سیستم در حال اتصال است...
+          <span className="text-xs font-medium text-slate-500">
+            Establishing secure connection...
           </span>
         </div>
+        
       </div>
     </div>
   );
 };
 
-export default loading;
+export default Loading;

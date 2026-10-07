@@ -4,4 +4,4 @@ from settings.view.about_us_view import AboutUsDetailAPIView
 from settings.view.faq_view import FAQListApiView
 from settings.view.TermsAndConditions_view import TermsAndConditionsListView
 from settings.view.ReturnPolicy_view import ReturnPolicyListView
-
+from settings.view.info_view import DashboardStatisticsAPIView

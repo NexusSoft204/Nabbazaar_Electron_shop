@@ -6,3 +6,4 @@ from settings.serializer.ContactMessage_serializer import ContactMessageSerializ
 from settings.serializer.ContactInfo_serializer import ContactInfoSerializer
 from settings.serializer.TermsAndConditions_serializer import TermsAndConditionSerializer
 from settings.serializer.ReturnPolicy_serializer import ReturnPolicySerializer
+from settings.serializer.info_serializer import DashboardStatisticsSerializer

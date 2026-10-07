@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 
 class Category(models.Model):
@@ -13,6 +14,17 @@ class Category(models.Model):
         verbose_name='دسته والد'
     )
     title = models.CharField(max_length=200, verbose_name='عنوان دسته‌بندی')
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='توضیحات دسته‌بندی'
+    )
+    image = models.ImageField(
+        upload_to='categories/%Y/%m/',
+        null=True,
+        blank=True,
+        verbose_name='تصویر دسته‌بندی'
+    )   
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True, verbose_name='اسلاگ (Slug)')
     is_active = models.BooleanField(default=True, verbose_name='وضعیت فعال/غیرفعال')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
@@ -36,3 +48,9 @@ class Category(models.Model):
         if not self.slug:
             self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+    def clean(self):
+        super().clean()
+        # جلوگیری از انتخاب خود به عنوان والد
+        if self.parent == self:
+            raise ValidationError("یک دسته‌بندی نمی‌تواند والد خودش باشد!")

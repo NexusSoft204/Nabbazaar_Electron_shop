@@ -50,7 +50,7 @@ const MainHeader = () => {
           <div className="mr-auto flex items-center gap-2">
             {/* Account */}
             <Link
-              href="/account"
+              href="/login"
               className="hidden items-center gap-2 rounded-lg px-3 py-2 transition hover:bg-slate-100 sm:flex"
             >
               <User size={22} />

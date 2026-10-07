@@ -13,7 +13,7 @@ from settings.view.ReturnPolicy_view import ReturnPolicyListView
 
 router = DefaultRouter()
 router.register(r'hero-sliders', HeroSliderView, basename='heroslider')
-
+from settings.view.info_view import DashboardStatisticsAPIView
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -24,6 +24,7 @@ urlpatterns = [
      path('contact/info/', ContactInfoView.as_view(), name='contact-info'),
      path('termsandcondition/', TermsAndConditionsListView.as_view(), name='TermsAndConditions'),
      path('ReturnPolicy/', ReturnPolicyListView.as_view(), name='ReturnPolicy'),
+     path('infosite/', DashboardStatisticsAPIView.as_view()),
 ]
 
 

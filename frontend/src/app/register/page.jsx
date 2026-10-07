@@ -11,6 +11,7 @@ import {
   Loader2,
   UserPlus,
   CheckCircle2,
+  Circle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -28,6 +29,29 @@ export default function RegisterPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
+  // -------------------------------------------------------
+  // Password validation
+  // -------------------------------------------------------
+
+  const passwordRules = {
+    minLength: formData.password.length >= 8,
+    hasLetter: /[A-Za-z]/.test(formData.password),
+    hasNumber: /[0-9]/.test(formData.password),
+    hasSpecial: /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\];'`~]/.test(
+      formData.password
+    ),
+  };
+
+  const isPasswordStrong =
+    passwordRules.minLength &&
+    passwordRules.hasLetter &&
+    passwordRules.hasNumber &&
+    passwordRules.hasSpecial;
+
+  // -------------------------------------------------------
+  // Handle input change
+  // -------------------------------------------------------
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -35,16 +59,60 @@ export default function RegisterPage() {
       ...prev,
       [name]: value,
     }));
+
+    // Clear old error while user is typing
+    if (errorMsg) {
+      setErrorMsg("");
+    }
+
+    if (successMsg) {
+      setSuccessMsg("");
+    }
   };
+
+  // -------------------------------------------------------
+  // Validate password
+  // -------------------------------------------------------
+
+  const validatePassword = () => {
+    if (!passwordRules.minLength) {
+      return "Password must be at least 8 characters long.";
+    }
+
+    if (!passwordRules.hasLetter) {
+      return "Password must contain at least one letter.";
+    }
+
+    if (!passwordRules.hasNumber) {
+      return "Password must contain at least one number.";
+    }
+
+    if (!passwordRules.hasSpecial) {
+      return "Password must contain at least one special character.";
+    }
+
+    return "";
+  };
+
+  // -------------------------------------------------------
+  // Register
+  // -------------------------------------------------------
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+
+    if (loading) {
+      return;
+    }
 
     setLoading(true);
     setErrorMsg("");
     setSuccessMsg("");
 
+    // -----------------------------------------------------
     // Password confirmation
+    // -----------------------------------------------------
+
     if (formData.password !== formData.confirm_password) {
       setErrorMsg(
         "Password confirmation mismatch. Both passwords must be identical."
@@ -54,26 +122,66 @@ export default function RegisterPage() {
       return;
     }
 
-    try {
-      if (!process.env.NEXT_PUBLIC_API_URL) {
-        throw new Error("NEXT_PUBLIC_API_URL is not configured");
-      }
+    // -----------------------------------------------------
+    // Password strength
+    // -----------------------------------------------------
 
+    const passwordError = validatePassword();
+
+    if (passwordError) {
+      setErrorMsg(passwordError);
+
+      setLoading(false);
+      return;
+    }
+
+    // -----------------------------------------------------
+    // API URL
+    // -----------------------------------------------------
+
+    try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-      const res = await fetch(`${API_URL}/api/register/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+      if (!API_URL) {
+        throw new Error(
+          "NEXT_PUBLIC_API_URL is not configured."
+        );
+      }
 
-      const data = await res.json();
+      // ---------------------------------------------------
+      // Register API
+      // ---------------------------------------------------
+
+      const res = await fetch(
+        `${API_URL}/api/register/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.username.trim(),
+            email: formData.email.trim(),
+            password: formData.password,
+          }),
+        }
+      );
+
+      // ---------------------------------------------------
+      // Parse response safely
+      // ---------------------------------------------------
+
+      let data = {};
+
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+
+      // ---------------------------------------------------
+      // Success
+      // ---------------------------------------------------
 
       if (res.ok) {
         setSuccessMsg(
@@ -90,18 +198,42 @@ export default function RegisterPage() {
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
-      } else {
-        const errorDetail = Object.values(data)
-          .flat()
-          .join(" ");
 
-        setErrorMsg(
-          errorDetail ||
-            "Registration failed. Username or email may already be registered."
-        );
+        return;
       }
+
+      // ---------------------------------------------------
+      // Backend error
+      // ---------------------------------------------------
+
+      let errorDetail = "";
+
+      if (typeof data === "string") {
+        errorDetail = data;
+      } else if (data?.detail) {
+        errorDetail = Array.isArray(data.detail)
+          ? data.detail.join(" ")
+          : data.detail;
+      } else {
+        errorDetail = Object.values(data)
+          .flat()
+          .map((item) =>
+            typeof item === "string"
+              ? item
+              : String(item)
+          )
+          .join(" ");
+      }
+
+      setErrorMsg(
+        errorDetail ||
+          "Registration failed. Username or email may already be registered."
+      );
     } catch (error) {
-      console.error("Network registration error:", error);
+      console.error(
+        "Network registration error:",
+        error
+      );
 
       setErrorMsg(
         "Unable to connect to the server. Please try again later."
@@ -136,14 +268,33 @@ export default function RegisterPage() {
               mb-4
             "
           >
-            <UserPlus size={25} strokeWidth={2} />
+            <UserPlus
+              size={25}
+              strokeWidth={2}
+            />
           </div>
 
-          <h1 className="text-2xl font-montserrat sm:text-3xl font-black text-[#03215B] tracking-tight">
+          <h1
+            className="
+              text-2xl
+              font-montserrat
+              sm:text-3xl
+              font-black
+              text-[#03215B]
+              tracking-tight
+            "
+          >
             Create Your Account
           </h1>
 
-          <p className="text-sm text-slate-500 mt-2 font-inter">
+          <p
+            className="
+              text-sm
+              text-slate-500
+              mt-2
+              font-inter
+            "
+          >
             Join NabBazaar and start shopping today.
           </p>
 
@@ -186,12 +337,21 @@ export default function RegisterPage() {
             className="space-y-5"
           >
 
-            {/* Username */}
+            {/* =====================================================
+                Username
+            ====================================================== */}
+
             <div className="space-y-2">
 
               <label
                 htmlFor="username"
-                className="block font-montserrat text-sm font-bold text-slate-700"
+                className="
+                  block
+                  font-montserrat
+                  text-sm
+                  font-bold
+                  text-slate-700
+                "
               >
                 Username
               </label>
@@ -200,7 +360,6 @@ export default function RegisterPage() {
                 className="
                   relative
                   flex
-                  font-inter
                   items-center
                   bg-[#F8FAFC]
                   border
@@ -245,12 +404,21 @@ export default function RegisterPage() {
 
             </div>
 
-            {/* Email */}
+            {/* =====================================================
+                Email
+            ====================================================== */}
+
             <div className="space-y-2">
 
               <label
                 htmlFor="email"
-                className="block font-montserrat text-sm font-bold text-slate-700"
+                className="
+                  block
+                  font-montserrat
+                  text-sm
+                  font-bold
+                  text-slate-700
+                "
               >
                 Email Address
               </label>
@@ -288,7 +456,6 @@ export default function RegisterPage() {
                   autoComplete="email"
                   className="
                     w-full
-                    font-inter
                     bg-transparent
                     text-slate-900
                     border-0
@@ -304,12 +471,21 @@ export default function RegisterPage() {
 
             </div>
 
-            {/* Password */}
+            {/* =====================================================
+                Password
+            ====================================================== */}
+
             <div className="space-y-2">
 
               <label
                 htmlFor="password"
-                className="block font-montserrat text-sm font-bold text-slate-700"
+                className="
+                  block
+                  font-montserrat
+                  text-sm
+                  font-bold
+                  text-slate-700
+                "
               >
                 Password
               </label>
@@ -341,7 +517,11 @@ export default function RegisterPage() {
                 <input
                   id="password"
                   required
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -387,14 +567,53 @@ export default function RegisterPage() {
 
               </div>
 
+              {/* Password Requirements */}
+
+              <div className="pt-2 space-y-1.5">
+
+                <p className="text-xs font-semibold text-slate-500 mb-2">
+                  Password must contain:
+                </p>
+
+                <PasswordRule
+                  valid={passwordRules.minLength}
+                  text="At least 8 characters"
+                />
+
+                <PasswordRule
+                  valid={passwordRules.hasLetter}
+                  text="At least one letter"
+                />
+
+                <PasswordRule
+                  valid={passwordRules.hasNumber}
+                  text="At least one number"
+                />
+
+                <PasswordRule
+                  valid={passwordRules.hasSpecial}
+                  text="At least one special character"
+                />
+
+              </div>
+
             </div>
 
-            {/* Confirm Password */}
+            {/* =====================================================
+                Confirm Password
+            ====================================================== */}
+
             <div className="space-y-2">
 
               <label
                 htmlFor="confirm_password"
-                className="block text-sm font-montserrat font-bold text-slate-700"
+                className="
+                  block
+                  text-sm
+                  font-montserrat
+                  font-bold
+                  text-slate-700
+                "
               >
                 Confirm Password
               </label>
@@ -426,7 +645,11 @@ export default function RegisterPage() {
                 <input
                   id="confirm_password"
                   required
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   name="confirm_password"
                   value={formData.confirm_password}
                   onChange={handleChange}
@@ -447,9 +670,30 @@ export default function RegisterPage() {
 
               </div>
 
+              {/* Password Match */}
+
+              {formData.confirm_password && (
+                <div
+                  className={`text-xs font-medium ${
+                    formData.password ===
+                    formData.confirm_password
+                      ? "text-emerald-600"
+                      : "text-red-500"
+                  }`}
+                >
+                  {formData.password ===
+                  formData.confirm_password
+                    ? "✓ Passwords match"
+                    : "✕ Passwords do not match"}
+                </div>
+              )}
+
             </div>
 
-            {/* Login Link */}
+            {/* =====================================================
+                Login Link
+            ====================================================== */}
+
             <div className="text-sm text-center pt-1">
 
               <span className="text-slate-500 font-inter">
@@ -471,7 +715,10 @@ export default function RegisterPage() {
 
             </div>
 
-            {/* Error */}
+            {/* =====================================================
+                Error
+            ====================================================== */}
+
             {errorMsg && (
               <div
                 className="
@@ -488,6 +735,7 @@ export default function RegisterPage() {
                   gap-3
                 "
               >
+
                 <ShieldAlert
                   size={18}
                   className="shrink-0 mt-0.5"
@@ -496,10 +744,14 @@ export default function RegisterPage() {
                 <span>
                   {errorMsg}
                 </span>
+
               </div>
             )}
 
-            {/* Success */}
+            {/* =====================================================
+                Success
+            ====================================================== */}
+
             {successMsg && (
               <div
                 className="
@@ -516,6 +768,7 @@ export default function RegisterPage() {
                   gap-3
                 "
               >
+
                 <CheckCircle2
                   size={18}
                   className="shrink-0 mt-0.5"
@@ -524,10 +777,14 @@ export default function RegisterPage() {
                 <span>
                   {successMsg}
                 </span>
+
               </div>
             )}
 
-            {/* Submit */}
+            {/* =====================================================
+                Submit
+            ====================================================== */}
+
             <button
               type="submit"
               disabled={loading}
@@ -560,7 +817,7 @@ export default function RegisterPage() {
               {loading ? (
                 <>
                   <Loader2
-                    className="w-5 h-5  animate-spin"
+                    className="w-5 h-5 animate-spin"
                   />
 
                   Creating Account...
@@ -578,9 +835,25 @@ export default function RegisterPage() {
           </form>
 
           {/* Footer */}
-          <div className="mt-7 pt-5 border-t border-slate-100 text-center">
+          <div
+            className="
+              mt-7
+              pt-5
+              border-t
+              border-slate-100
+              text-center
+            "
+          >
 
-            <p className="text-[11px] font-inter text-slate-400 uppercase tracking-[0.18em]">
+            <p
+              className="
+                text-[11px]
+                font-inter
+                text-slate-400
+                uppercase
+                tracking-[0.18em]
+              "
+            >
               Secure & Trusted Shopping
             </p>
 
@@ -589,11 +862,51 @@ export default function RegisterPage() {
         </div>
 
         {/* Bottom */}
-        <p className="text-center text-xs font-inter text-slate-400 mt-6">
-          © {new Date().getFullYear()} NabBazaar. All rights reserved.
+        <p
+          className="
+            text-center
+            text-xs
+            font-inter
+            text-slate-400
+            mt-6
+          "
+        >
+          © {new Date().getFullYear()} NabBazaar.
+          All rights reserved.
         </p>
 
       </div>
     </main>
+  );
+}
+
+
+/* =========================================================
+   Password Rule Component
+========================================================= */
+
+function PasswordRule({ valid, text }) {
+  return (
+    <div
+      className={`flex items-center gap-2 text-xs ${
+        valid
+          ? "text-emerald-600"
+          : "text-slate-400"
+      }`}
+    >
+      {valid ? (
+        <CheckCircle2
+          size={14}
+          className="shrink-0"
+        />
+      ) : (
+        <Circle
+          size={14}
+          className="shrink-0"
+        />
+      )}
+
+      <span>{text}</span>
+    </div>
   );
 }
