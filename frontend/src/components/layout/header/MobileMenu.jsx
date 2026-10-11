@@ -611,6 +611,27 @@ const MobileMenu = ({ isOpen, onClose }) => {
             </Link>
 
 
+
+            <Link
+              href="/Friday-bazaar"
+              onClick={handleClose}
+              className="
+                flex
+                items-center
+                gap-3
+                rounded-lg
+                px-3
+                py-3
+                text-slate-700
+                hover:bg-slate-100
+                transition
+              "
+            >
+              <Store size={20} />
+              <span>Friday Bazaar</span>
+            </Link>
+
+
             {/* FAQ */}
 
             <Link
@@ -1109,18 +1130,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
               <Phone size={20} />
             </div>
 
-
-            <div>
-
-              <p className="text-xs text-blue-100">
-                تماس با پشتیبانی
-              </p>
-
-              <p className="font-bold">
-                0788001919
-              </p>
-
-            </div>
 
           </a>
 

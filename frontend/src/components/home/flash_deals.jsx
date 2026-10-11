@@ -143,12 +143,12 @@ const Flash_deals = () => {
                 <div 
                   onClick={() => router.push(`/shop/${product.slug}`)} 
                   key={product.id}
-                  className={`h-full w-[200px] cursor-pointer flex-shrink-0 flex items-center gap-3 snap-start transition-colors relative group/card ${
+                  className={`h-full w-62.5 cursor-pointer flex-shrink-0 flex items-center gap-1 snap-start transition-colors relative group/card ${
                     index !== products.length - 1 ? 'border-r-2 border-gray-100' : ''
                   }`}
                 >
                   {/* تصویر محصول کج شده در سمت چپ کارت */}
-                  <div className='w-20 h-full flex items-center justify-center py-5 bg-white rounded-lg pl-1'>
+                  <div className='w-26 h-full flex items-center justify-center py-5 bg-white rounded-lg pl-1'>
                     <img 
                       src={`${API_URL}${product.image}`} 
                       alt={product.product_name}

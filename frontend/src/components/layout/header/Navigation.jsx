@@ -29,7 +29,7 @@ const navItems = [
   { title: "Blog", href: "/blog" },
   { title: "About us", href: "/about-us" },
   { title: "FAQ", href: "/faq" },
-  { title: "Contact us", href: "/contact-us" },
+  { title: "Friday Bazaar", href: "/Friday-bazaar" },
 ];
 
 /*
@@ -316,19 +316,6 @@ const Navigation = () => {
         </div>
 
 
-        {/* =========================================================
-            Support
-        ========================================================= */}
-
-        <div className="mr-auto flex items-center gap-2 text-sm font-semibold text-slate-700">
-
-          <Menu size={18} />
-
-          <span>
-            contact: 0788001919
-          </span>
-
-        </div>
 
       </div>
     </nav>

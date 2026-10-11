@@ -222,7 +222,6 @@ const NewArrivels = () => {
               -translate-y-1/2
               -translate-x-1/2
               z-20
-
               w-9
               h-9
 
@@ -283,30 +282,22 @@ const NewArrivels = () => {
                   key={product.id}
                   className="
                     group/card
-
                     relative
-
+                    flex
+                    flex-col
                     flex-shrink-0
-
                     snap-start
-
                     w-[175px]
                     sm:w-[190px]
                     md:w-[200px]
                     lg:w-[205px]
-
                     border
                     border-gray-200
-
                     rounded-md
-
                     bg-white
-
                     overflow-hidden
-
                     transition-all
                     duration-300
-
                     hover:-translate-y-1
                     hover:shadow-lg
                   "
@@ -324,8 +315,6 @@ const NewArrivels = () => {
                       className="
                         relative
                         cursor-pointer
-                        h-[125px]
-                        sm:h-[135px]
 
                         bg-white
 
@@ -385,7 +374,7 @@ const NewArrivels = () => {
                   {/* ==================================================
                       PRODUCT INFORMATION
                   ================================================== */}
-                  <div className="px-2 pb-2">
+                  <div className="flex flex-1 flex-col px-2 pb-2 min-h-0">
 
                     {/* PRODUCT NAME */}
                     <div
@@ -404,7 +393,6 @@ const NewArrivels = () => {
 
                         hover:text-primary-blue
                         mt-4
-                        mb-8
                         font-montserrat
                       "
                       title={product.product_name}
@@ -417,16 +405,15 @@ const NewArrivels = () => {
                     {/* ==================================================
                         PRICE
                     ================================================== */}
-                    <div className="flex items-center gap-1.5 mt-1.5">
+                    <div className="flex items-center gap-1.5mt-2 min-h-[28px]">
 
                       {discount.hasDiscount && (
                         <span
                           className="
-                            text-md
+                            text-sm
 
                             font-bold
                             font-montserrat
-                            mb-2
                           "
                         >
                           AFN {formatPrice(Number(product.price))} 
@@ -449,6 +436,7 @@ const NewArrivels = () => {
                           mt-2
                           w-full
                           h-8
+                          self-end
                           rounded-md
                           flex
                           items-center

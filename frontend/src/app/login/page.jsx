@@ -61,20 +61,44 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        document.cookie = `auth_token=${data.token}; max-age=604800; path=/; SameSite=Lax`
+        // بررسی دریافت توکن
+        if (!data.token) {
+          throw new Error("Authentication token was not returned.");
+        }
+
+        // ذخیره توکن در Cookie
+        const maxAge = rememberMe ? 60 * 60 * 24 * 30 : 60 * 60 * 24;
+
+        document.cookie = [
+          `auth_token=${encodeURIComponent(data.token)}`,
+          `max-age=${maxAge}`,
+          "path=/",
+          "SameSite=Lax",
+          ...(window.location.protocol === "https:" ? ["Secure"] : []),
+        ].join("; ");
+
+        // ذخیره نام کاربری در Cookie
+        document.cookie = [
+          `auth_username=${encodeURIComponent(credentials.username)}`,
+          `max-age=${maxAge}`,
+          "path=/",
+          "SameSite=Lax",
+          ...(window.location.protocol === "https:" ? ["Secure"] : []),
+        ].join("; ");
+
+        // انتقال کاربر به سبد خرید
         window.location.href = "/cart";
-        
       } else {
         setErrorMsg(
           data.detail ||
-            "Invalid login credentials. Please check your username and password."
+            "Invalid login credentials. Please check your username and password.",
         );
       }
     } catch (error) {
       console.error("Authentication error:", error);
 
       setErrorMsg(
-        "Unable to connect to the authentication server. Please try again later."
+        "Unable to connect to the authentication server. Please try again later.",
       );
     } finally {
       setLoading(false);
@@ -83,13 +107,10 @@ export default function Login() {
 
   return (
     <main className="min-h-screen w-full bg-[#F7F8F9] flex items-center justify-center px-4 py-10 sm:py-14 font-sans">
-      
       {/* Main Wrapper */}
       <div className="w-full max-w-md">
-
         {/* Brand Header */}
         <div className="text-center mb-7">
-
           {/* Logo */}
           <div
             className="
@@ -107,10 +128,7 @@ export default function Login() {
               mb-4
             "
           >
-            <ShieldCheck
-              size={27}
-              strokeWidth={2}
-            />
+            <ShieldCheck size={27} strokeWidth={2} />
           </div>
 
           {/* Brand */}
@@ -118,10 +136,7 @@ export default function Login() {
             NabBazaar
           </h1>
 
-          <p className="text-sm text-slate-500 mt-2">
-            Sign in to your account
-          </p>
-
+          <p className="text-sm text-slate-500 mt-2">Sign in to your account</p>
         </div>
 
         {/* Login Card */}
@@ -139,7 +154,6 @@ export default function Login() {
             overflow-hidden
           "
         >
-
           {/* Top Gradient Line */}
           <div
             className="
@@ -156,14 +170,9 @@ export default function Login() {
           />
 
           {/* Login Form */}
-          <form
-            onSubmit={handleLoginSubmit}
-            className="space-y-5"
-          >
-
+          <form onSubmit={handleLoginSubmit} className="space-y-5">
             {/* Username / Email */}
             <div className="space-y-2">
-
               <label
                 htmlFor="username"
                 className="block text-sm font-bold text-slate-700"
@@ -188,7 +197,6 @@ export default function Login() {
                   focus-within:ring-blue-500/10
                 "
               >
-
                 <Mail
                   size={18}
                   className="
@@ -218,14 +226,11 @@ export default function Login() {
                   "
                   placeholder="Enter your username"
                 />
-
               </div>
-
             </div>
 
             {/* Password */}
             <div className="space-y-2">
-
               <label
                 htmlFor="password"
                 className="block text-sm font-bold text-slate-700"
@@ -250,7 +255,6 @@ export default function Login() {
                   focus-within:ring-blue-500/10
                 "
               >
-
                 <Lock
                   size={18}
                   className="
@@ -285,14 +289,8 @@ export default function Login() {
                 {/* Show / Hide */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowPassword(!showPassword)
-                  }
-                  aria-label={
-                    showPassword
-                      ? "Hide password"
-                      : "Show password"
-                  }
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   className="
                     absolute
                     right-4
@@ -302,20 +300,13 @@ export default function Login() {
                     cursor-pointer
                   "
                 >
-                  {showPassword ? (
-                    <EyeOff size={18} />
-                  ) : (
-                    <Eye size={18} />
-                  )}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
-
               </div>
-
             </div>
 
             {/* Remember + Forgot Password */}
             <div className="flex items-center justify-between gap-4 text-sm">
-
               {/* Remember */}
               <label
                 htmlFor="remember"
@@ -328,14 +319,11 @@ export default function Login() {
                   cursor-pointer
                 "
               >
-
                 <input
                   id="remember"
                   type="checkbox"
                   checked={rememberMe}
-                  onChange={(e) =>
-                    setRememberMe(e.target.checked)
-                  }
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   className="
                     w-4
                     h-4
@@ -347,10 +335,7 @@ export default function Login() {
                   "
                 />
 
-                <span>
-                  Remember me
-                </span>
-
+                <span>Remember me</span>
               </label>
 
               {/* Forgot Password */}
@@ -366,7 +351,6 @@ export default function Login() {
               >
                 Forgot password?
               </Link>
-
             </div>
 
             {/* Error Message */}
@@ -386,16 +370,9 @@ export default function Login() {
                   gap-3
                 "
               >
+                <AlertCircle size={18} className="shrink-0 mt-0.5" />
 
-                <AlertCircle
-                  size={18}
-                  className="shrink-0 mt-0.5"
-                />
-
-                <span>
-                  {errorMsg}
-                </span>
-
+                <span>{errorMsg}</span>
               </div>
             )}
 
@@ -427,25 +404,18 @@ export default function Login() {
                 disabled:cursor-not-allowed
               "
             >
-
               {loading ? (
                 <>
-                  <Loader2
-                    className="w-5 h-5 animate-spin"
-                  />
-
+                  <Loader2 className="w-5 h-5 animate-spin" />
                   Signing In...
                 </>
               ) : (
                 <>
                   <LogIn size={18} />
-
                   Sign In
                 </>
               )}
-
             </button>
-
           </form>
 
           {/* Register Section */}
@@ -458,11 +428,8 @@ export default function Login() {
               text-center
             "
           >
-
             <p className="text-sm text-slate-500">
-
               Don't have an account?
-
               <Link
                 href="/register"
                 className="
@@ -475,14 +442,11 @@ export default function Login() {
               >
                 Create Account
               </Link>
-
             </p>
-
           </div>
 
           {/* Security Footer */}
           <div className="mt-5 text-center">
-
             <p
               className="
                 text-[11px]
@@ -493,18 +457,14 @@ export default function Login() {
             >
               Secure & Trusted Shopping
             </p>
-
           </div>
-
         </div>
 
         {/* Copyright */}
         <p className="text-center text-xs text-slate-400 mt-6">
           © {new Date().getFullYear()} NabBazaar. All rights reserved.
         </p>
-
       </div>
-
     </main>
   );
 }

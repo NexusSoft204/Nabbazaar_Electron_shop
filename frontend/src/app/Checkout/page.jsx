@@ -1169,18 +1169,44 @@ const Checkout = () => {
                       const itemTotal =
                         price * quantity;
 
-                      const image =
-                        item.image
+                      const rawImage =
+                            item.image ||
+                            item.image_url ||
+                            item.thumbnail ||
+                            item.product_image ||
+                            item.product?.image ||
+                            item.product?.image_url ||
+                            item.product?.thumbnail ||
+                            "";
+
+                          let image = "";
+
+                      if (typeof rawImage === "string" && rawImage.trim()) {
+                        if (
+                          rawImage.startsWith("http://") ||
+                          rawImage.startsWith("https://")
+                        ) {
+                          image = rawImage;
+                        } else {
+                          image = `${API_URL.replace(/\/+$/, "")}/${rawImage.replace(/^\/+/, "")}`;
+                        }
+                      } else if (rawImage && typeof rawImage === "object") {
+                        const imagePath = rawImage.url || rawImage.image || "";
+
+                        if (typeof imagePath === "string" && imagePath.trim()) {
+                          image = imagePath.startsWith("http://") ||
+                            imagePath.startsWith("https://")
+                            ? imagePath
+                            : `${API_URL.replace(/\/+$/, "")}/${imagePath.replace(/^\/+/, "")}`;
+                        }
+                      }
 
                       const name =
                         item.product_name ||
                         item.name ||
                         "Product";
 
-                      const stock =
-                        Number(
-                          item.stock || 0
-                        );
+                      const stock = Number(item.stock || 0);
 
                       return (
                         <div
@@ -1194,13 +1220,23 @@ const Checkout = () => {
 
                             <div className="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden bg-slate-100">
 
-                              <Image
-                                src={image}
-                                alt={name}
-                                width={80}
-                                height={80}
-                                className="w-full h-full object-cover"
-                              />
+                              {image ? (
+                                  <img
+                                    src={image}
+                                    alt={name}
+                                    width={80}
+                                    height={80}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      console.error("Product image failed:", image);
+                                      e.currentTarget.style.display = "none";
+                                    }}
+                                  />
+                                ) : (
+                                  <div className="flex h-full w-full items-center justify-center text-xs text-slate-400">
+                                    No Image
+                                  </div>
+                                )}
 
                             </div>
 
