@@ -16,9 +16,11 @@ ALLOWED_HOSTS = ['api.nabbazaar.com', 'nabbazaar.com', '127.0.0.1', 'localhost']
 INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
+    'dj_rest_auth',
     'settings',
     'blog',
     'products',
+    'friday_bazaar',
     'accounts',
     'basket',
     'corsheaders',
@@ -99,16 +101,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://nabbazaar.com",
 ]
 
-# Email Settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'esmailkeyhan22@gmail.com'
-EMAIL_HOST_PASSWORD = 'your-app-password-from-google' 
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-ADMIN_EMAIL = 'esmailkeyhan22@gmail.com' 
 
 # Django Rest Framework
 REST_FRAMEWORK = {
@@ -118,3 +110,27 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# ////// Reset_ password //// 
+import os
+IS_LOCAL = True 
+
+if IS_LOCAL:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'mail.nabbazaar.com'  
+    EMAIL_PORT = 465  
+    EMAIL_USE_TLS = False
+    EMAIL_USE_SSL = True
+    EMAIL_HOST_USER = 'info@nabbazaar.com'
+    EMAIL_HOST_PASSWORD = 'v#wz^$c5bi*u419w' 
+
+DEFAULT_FROM_EMAIL = 'info@nabbazaar.com'
+PASSWORD_RESET_CONFIRM_URL = 'https://nabbazaar.com/password-reset-confirm/'
+
+REST_AUTH = {
+    'PASSWORD_RESET_SERIALIZER': 'accounts.serializers.CustomPasswordResetSerializer',
+}

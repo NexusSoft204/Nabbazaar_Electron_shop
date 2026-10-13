@@ -72,22 +72,38 @@ const Checkout = () => {
   // ----------------------------------------------------
 
   const shippingCosts = {
-    normal: 0,
-    express: 100,
-    pickup: 0,
+    kabul: 100,
+    province: 200,
   };
 
   // ----------------------------------------------------
   // Get Product Price
   // ----------------------------------------------------
 
-  const getProductPrice = (item) => {
-  // اگر آیتم سبد خرید Variant دارد
+  
+const getProductPrice = (item) => {
+  // 1. قیمت ویژه جمعه‌بازار
+  if (
+    item.is_friday_bazaar === true ||
+    item.friday_bazaar_item_id
+  ) {
+    const campaignPrice = Number(
+      item.campaign_price ?? item.price ?? 0
+    );
+
+    if (campaignPrice > 0) {
+      return campaignPrice;
+    }
+  }
+
+  // 2. قیمت Variant
   if (item.variant) {
-    const variantPrice = Number(item.variant.price || 0);
+    const variantPrice = Number(
+      item.variant.price || 0
+    );
 
     const variantDiscountPrice = Number(
-      item.variant.discount_price ?? 0
+      item.variant.discount_price || 0
     );
 
     if (
@@ -100,13 +116,13 @@ const Checkout = () => {
     return variantPrice;
   }
 
-  // قیمت خود Product
+  // 3. قیمت محصول عادی
   const price = Number(item.price || 0);
 
   const discountPrice = Number(
     item.discount_price ??
-      item.discountPrice ??
-      0
+    item.discountPrice ??
+    0
   );
 
   if (
@@ -118,6 +134,7 @@ const Checkout = () => {
 
   return price;
 };
+
 
   // ----------------------------------------------------
   // Subtotal
@@ -251,18 +268,21 @@ const Checkout = () => {
         payment_method: paymentMethod,
 
         items: basket.map((item) => ({
-          product_id: item.id,
+  product_id: item.product ?? item.id,
+  quantity: Number(item.quantity || 0),
 
-          quantity: Number(
-            item.quantity || 0
-          ),
-        })),
+  ...(item.is_friday_bazaar &&
+      item.friday_bazaar_item_id
+    ? {
+        friday_bazaar_item_id:
+          item.friday_bazaar_item_id,
+      }
+    : {}),
+})),
+
+        
       };
 
-      // console.log(
-      //   "ORDER DATA:",
-      //   orderData
-      // );
 
       // --------------------------------------------
       // Send Order To Django
@@ -279,10 +299,6 @@ const Checkout = () => {
         }
       );
 
-      console.log(
-        "ORDER RESPONSE:",
-        response.data
-      );
 
       // --------------------------------------------
       // Get Created Order
@@ -357,6 +373,7 @@ const Checkout = () => {
     } finally {
       setIsSubmitting(false);
     }
+
   };
 
   // ----------------------------------------------------
@@ -721,190 +738,104 @@ const Checkout = () => {
               {/* Shipping */}
               {/* ------------------------------------------------ */}
 
+            
               <section className="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7">
-
+                {/* Header */}
                 <div className="flex items-center gap-3 mb-6">
-
                   <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
                     <Truck className="w-5 h-5 text-[#045FF8]" />
                   </div>
-
+                    
                   <div>
                     <h2 className="text-lg sm:text-xl font-bold text-[#03215B]">
                       Shipping Method
                     </h2>
-
+                    
                     <p className="text-sm text-slate-500 mt-1">
                       Choose how you want to receive your order.
                     </p>
                   </div>
-
                 </div>
 
                 <div className="space-y-3">
-
-                  {/* Standard */}
-
+                  {/* Kabul Delivery */}
                   <label
                     className={`block cursor-pointer rounded-2xl border p-4 transition ${
-                      shippingMethod === "normal"
+                      shippingMethod === "kabul"
                         ? "border-[#045FF8] bg-blue-50/50"
                         : "border-slate-200 hover:border-slate-300"
                     }`}
                   >
-
                     <div className="flex items-center gap-4">
-
                       <input
                         type="radio"
                         name="shipping"
-                        value="normal"
-                        checked={
-                          shippingMethod === "normal"
-                        }
-                        onChange={(e) =>
-                          setShippingMethod(
-                            e.target.value
-                          )
-                        }
+                        value="kabul"
+                        checked={shippingMethod === "kabul"}
+                        onChange={(e) => setShippingMethod(e.target.value)}
                         className="w-5 h-5 accent-[#045FF8]"
                       />
 
                       <div className="flex-1">
-
                         <div className="flex items-center justify-between gap-3">
-
                           <div>
                             <h3 className="font-bold text-slate-800">
-                              Standard Delivery
+                              Kabul Delivery
                             </h3>
 
                             <p className="text-sm text-slate-500 mt-1">
-                              Regular delivery service
+                              Delivery within Kabul
                             </p>
                           </div>
 
                           <span className="font-bold text-[#045FF8]">
-                            Free
+                            {formatPrice(shippingCosts.kabul)}
                           </span>
-
                         </div>
-
                       </div>
-
                     </div>
-
                   </label>
 
-                  {/* Express */}
+    {/* Province Delivery */}
+    <label
+      className={`block cursor-pointer rounded-2xl border p-4 transition ${
+        shippingMethod === "province"
+          ? "border-[#045FF8] bg-blue-50/50"
+          : "border-slate-200 hover:border-slate-300"
+      }`}
+    >
+      <div className="flex items-center gap-4">
+        <input
+          type="radio"
+          name="shipping"
+          value="province"
+          checked={shippingMethod === "province"}
+          onChange={(e) => setShippingMethod(e.target.value)}
+          className="w-5 h-5 accent-[#045FF8]"
+        />
 
-                  <label
-                    className={`block cursor-pointer rounded-2xl border p-4 transition ${
-                      shippingMethod === "express"
-                        ? "border-[#045FF8] bg-blue-50/50"
-                        : "border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
+        <div className="flex-1">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="font-bold text-slate-800">
+                Province Delivery
+              </h3>
 
-                    <div className="flex items-center gap-4">
+              <p className="text-sm text-slate-500 mt-1">
+                Delivery to other provinces
+              </p>
+            </div>
 
-                      <input
-                        type="radio"
-                        name="shipping"
-                        value="express"
-                        checked={
-                          shippingMethod === "express"
-                        }
-                        onChange={(e) =>
-                          setShippingMethod(
-                            e.target.value
-                          )
-                        }
-                        className="w-5 h-5 accent-[#045FF8]"
-                      />
-
-                      <div className="flex-1">
-
-                        <div className="flex items-center justify-between gap-3">
-
-                          <div>
-                            <h3 className="font-bold text-slate-800">
-                              Express Delivery
-                            </h3>
-
-                            <p className="text-sm text-slate-500 mt-1">
-                              Faster delivery service
-                            </p>
-                          </div>
-
-                          <span className="font-bold text-[#045FF8]">
-                            {formatPrice(100)}
-                          </span>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </label>
-
-                  {/* Pickup */}
-
-                  <label
-                    className={`block cursor-pointer rounded-2xl border p-4 transition ${
-                      shippingMethod === "pickup"
-                        ? "border-[#045FF8] bg-blue-50/50"
-                        : "border-slate-200 hover:border-slate-300"
-                    }`}
-                  >
-
-                    <div className="flex items-center gap-4">
-
-                      <input
-                        type="radio"
-                        name="shipping"
-                        value="pickup"
-                        checked={
-                          shippingMethod === "pickup"
-                        }
-                        onChange={(e) =>
-                          setShippingMethod(
-                            e.target.value
-                          )
-                        }
-                        className="w-5 h-5 accent-[#045FF8]"
-                      />
-
-                      <div className="flex-1">
-
-                        <div className="flex items-center justify-between gap-3">
-
-                          <div>
-                            <h3 className="font-bold text-slate-800">
-                              Store Pickup
-                            </h3>
-
-                            <p className="text-sm text-slate-500 mt-1">
-                              Pick up your order from our store
-                            </p>
-                          </div>
-
-                          <span className="font-bold text-[#045FF8]">
-                            Free
-                          </span>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </label>
-
-                </div>
-
+            <span className="font-bold text-[#045FF8]">
+              {formatPrice(shippingCosts.province)}
+            </span>
+          </div>
+        </div>
+      </div>
+    </label>
+  </div>
               </section>
+
 
               {/* ------------------------------------------------ */}
               {/* Payment */}
@@ -989,6 +920,7 @@ const Checkout = () => {
                         type="radio"
                         name="payment"
                         value="online"
+                        disabled
                         checked={
                           paymentMethod === "online"
                         }
@@ -1030,6 +962,7 @@ const Checkout = () => {
                         type="radio"
                         name="payment"
                         value="bank"
+                        disabled
                         checked={
                           paymentMethod === "bank"
                         }
@@ -1071,6 +1004,7 @@ const Checkout = () => {
                         type="radio"
                         name="payment"
                         value="other"
+                        disabled
                         checked={
                           paymentMethod === "other"
                         }

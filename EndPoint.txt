@@ -1,3 +1,6 @@
+password : v#wz^$c5bi*u419w
+emial: info@nabbazaar.com
+
 Hero slider
 http://127.0.0.1:8000/api/settings/hero-sliders/
 
@@ -59,3 +62,10 @@ GET
 
 GET
 /api/order/track/?order_number=ORD-000001&phone=0701234567
+
+
+
+Password/reset/
+http://127.0.0.1:8000/api/auth/password/reset/
+confirm/password/
+http://127.0.0.1:8000/api/auth/password/reset/confirm/

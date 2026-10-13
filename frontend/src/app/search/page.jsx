@@ -27,7 +27,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
   }
 
   return (
-    <div className="search-results-container p-6 h-screen">
+    <div className="search-results-container p-6 min-h-screen">
       <h1 className="text-xl font-bold mb-4 font-montserrat">Result Search for: "{searchQuery}"</h1>
       
       {products.length === 0 ? (

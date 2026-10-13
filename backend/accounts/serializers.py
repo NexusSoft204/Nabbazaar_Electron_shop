@@ -30,3 +30,56 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from dj_rest_auth.serializers import PasswordResetSerializer
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.mail import send_mail
+
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def save(self):
+        email = self.validated_data['email']
+        users = get_user_model().objects.filter(email=email, is_active=True)
+        
+        for user in users:
+            from django.contrib.auth.tokens import default_token_generator
+            from django.utils.http import urlsafe_base64_encode
+            from django.utils.encoding import force_bytes
+            
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            
+            url = settings.PASSWORD_RESET_CONFIRM_URL
+            final_url = f"{url}?uid={uid}&token={token}"
+            
+            # چاپ لینک در ترمینال لوکال برای کار شما
+            print("\n" + "="*50)
+            print("🔵 LINK FOR NEXT.JS FRONTLEND:")
+            print(final_url)
+            print("="*50 + "\n")
+            
+            # تلاش برای ارسال ایمیل واقعی (اگر سرور مسدود نباشد کار میکند، اگر مسدود باشد در لوکال خطایی نمیدهد)
+            try:
+                subject = "بازیابی رمز عبور - نب بازار"
+                message = f"کاربر گرامی، برای تغییر رمز عبور خود روی لینک زیر کلیک کنید:\n\n{final_url}"
+                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email], fail_silently=False)
+            except Exception as e:
+                # اگر اینترنت لوکال پورت را بسته بود، خطا را نادیده بگیر تا فرانت رندر شود
+                pass
+            
+        return email
