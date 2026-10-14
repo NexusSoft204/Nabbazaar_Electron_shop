@@ -29,6 +29,34 @@ import Sidebar_total from "./sidebar_total";
 import TrustFeatures from "./TrustFeatures";
 
 export default function CartPage() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
+  const getProductImage = (item) => {
+  const image =
+    item.image ||
+    item.product_image ||
+    item.thumbnail ||
+    item.product?.image ||
+    "";
+
+  if (!image) {
+    return "/images/placeholder.png";
+  }
+
+  // اگر آدرس تصویر کامل باشد
+  if (/^https?:\/\//i.test(image)) {
+    return image;
+  }
+
+  // اگر API تنظیم نشده باشد
+  if (!API_URL) {
+    console.error("NEXT_PUBLIC_API_URL is not configured");
+    return "/images/placeholder.png";
+  }
+
+  // ساخت آدرس کامل تصویر
+  return `${API_URL.replace(/\/+$/, "")}/${image.replace(/^\/+/, "")}`;
+};
 
   const {
 
@@ -406,11 +434,7 @@ const totalItems = basket.reduce(
 
                   // Product Image
 
-                  const productImage =
-
-                    item.image ||
-
-                    "/images/placeholder.png";
+                  const productImage = getProductImage(item);
 
                   // Product Slug
 

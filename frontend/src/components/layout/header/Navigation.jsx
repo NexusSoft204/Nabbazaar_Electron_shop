@@ -276,21 +276,7 @@ const Navigation = () => {
                 )}
 
 
-              {/* =================================================
-                  All Categories
-              ================================================= */}
 
-              {!loading && (
-                <Link
-                  href="/categories"
-                  onClick={() =>
-                    setIsOpen(false)
-                  }
-                  className="mt-4 flex items-center justify-center rounded-lg bg-slate-100 py-3 text-sm font-semibold transition hover:bg-blue-600 hover:text-white"
-                >
-                  All Categories
-                </Link>
-              )}
 
             </div>
           )}
